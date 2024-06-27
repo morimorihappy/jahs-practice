@@ -20,16 +20,16 @@ class ObjectiveFunc:
             "Optimizer": trial.suggest_categorical("Optimizer", ["SGD"]),
             "Momentum": trial.suggest_float("Momentum", 0.0, 1.0) if trial.params.get("Optimizer") == "SGD" else 0.0,
             "Activation": trial.suggest_categorical("Activation", ["ReLU", "Hardswish", "Mish"]),
-            "N": trial.suggest_int("N", 1, 5),
+            "N": trial.suggest_int("N", 1, 5, step=2),
             "Op1": trial.suggest_categorical("Op1", list(range(5))),
             "Op2": trial.suggest_categorical("Op2", list(range(5))),
             "Op3": trial.suggest_categorical("Op3", list(range(5))),
             "Op4": trial.suggest_categorical("Op4", list(range(5))),
             "Op5": trial.suggest_categorical("Op5", list(range(5))),
             "Op6": trial.suggest_categorical("Op6", list(range(5))),
-            "Resolution": trial.suggest_categorical("Resolution", [0.25, 0.5, 1.0]),
+            "Resolution": 1.0,
             "TrivialAugment": trial.suggest_categorical("TrivialAugment", [True, False]),
-            "W": trial.suggest_int("W", 8, 64),
+            "W": 2 ** trial.suggest_int("exponent_of_W", 2, 4),
             "WeightDecay": trial.suggest_float("WeightDecay", 1e-5, 1e-2, log=True)
         }
         return config
